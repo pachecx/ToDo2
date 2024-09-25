@@ -25,14 +25,16 @@ function App() {
   };
 
   const removerTarefa = (tarefaId: number) => {
-    setTarefas(tarefas.filter((tarefa) => tarefa.id !== tarefaId))
-  }
+    setTarefas(tarefas.filter((tarefa) => tarefa.id !== tarefaId));
+  };
 
   const feito = (tarefaId: number) => {
-    setTarefas(tarefas.map((tarefa) => tarefa.id === tarefaId ? {...tarefa, done: !tarefa.done} : tarefa))
-
-  
-  }
+    setTarefas(
+      tarefas.map((tarefa) =>
+        tarefa.id === tarefaId ? { ...tarefa, done: !tarefa.done } : tarefa
+      )
+    );
+  };
 
   return (
     <main className="bg-slate-200 h-screen p-8">
@@ -62,12 +64,12 @@ function App() {
             key={tarefa.id}
             className="flex bg-white mt-4 p-2 rounded justify-between w-1/3 items-center"
           >
-            <button 
-              onClick={() => feito(tarefa.id)}
-            >
-              <p className={ tarefa.done === true ? `line-through` : `text-red-600`}>{tarefa.text}</p>
+            <button onClick={() => feito(tarefa.id)}>
+              <p className={tarefa.done === true ? `line-through` : ``}>
+                {tarefa.text}
+              </p>
             </button>
-            <button 
+            <button
               onClick={() => removerTarefa(tarefa.id)}
               className="bg-green-500 p-1 rounded text-white"
             >
@@ -76,6 +78,14 @@ function App() {
           </div>
         ))}
       </div>
+
+      {!tarefas.length ? (
+        <div className="mt-3">
+          <p className="font-bold">Nenhuma tarefa cadastrada!</p>
+        </div>
+      ) : (
+        ""
+      )}
     </main>
   );
 }
