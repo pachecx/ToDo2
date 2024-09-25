@@ -28,8 +28,10 @@ function App() {
     setTarefas(tarefas.filter((tarefa) => tarefa.id !== tarefaId))
   }
 
-  const feito = () => {
-    setTarefas()
+  const feito = (tarefaId: number) => {
+    setTarefas(tarefas.map((tarefa) => tarefa.id === tarefaId ? {...tarefa, done: !tarefa.done} : tarefa))
+
+  
   }
 
   return (
@@ -61,9 +63,9 @@ function App() {
             className="flex bg-white mt-4 p-2 rounded justify-between w-1/3 items-center"
           >
             <button 
-              onClick={feito}
+              onClick={() => feito(tarefa.id)}
             >
-              <p className={`line-through`}>{tarefa.text}</p>
+              <p className={ tarefa.done === true ? `line-through` : `text-red-600`}>{tarefa.text}</p>
             </button>
             <button 
               onClick={() => removerTarefa(tarefa.id)}
